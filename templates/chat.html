@@ -1,0 +1,247 @@
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symptom Analysis Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .chat-box {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .chat-input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .chat-button {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+        .chat-button:hover {
+            background-color: #0056b3;
+        }
+        .result-box {
+            margin-top: 20px;
+        }
+        .llm-output {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .disease-result, .llm-result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-box">
+        <h1>Symptom Chat</h1>
+        <form action="/process-chat" method="post">
+            <label for="user-input">Describe your symptoms:</label>
+            <textarea id="user-input" name="user_input" class="chat-input" rows="5" placeholder="Enter your symptoms here..."></textarea>
+            <button type="submit" class="chat-button">Submit</button>
+        </form>
+        
+        {% if error %}
+            <div style="color: red; margin-top: 20px;">{{ error }}</div>
+        {% endif %}
+        
+        {% if user_input %}
+            <div class="result-box">
+                <h2>Input:</h2>
+                <p>{{ user_input }}</p>
+            </div>
+        {% endif %}
+        
+        {% if llm_output %}
+            <div class="llm-result">
+                <h3>LLM Response:</h3>
+                <div class="llm-output">
+                    <p>{{ llm_output['generated_text'] }}</p>
+                </div>
+            </div>
+        {% endif %}
+        
+        {% if result %}
+            <div class="disease-result">
+                <h3>Disease Prediction:</h3>
+                <p><strong>Disease:</strong> {{ result['disease'] }}</p>
+                <p><strong>Confidence Scores:</strong> {{ result['confidence_scores'] }}</p>
+                <h4>Explanation:</h4>
+                <p>{{ result['description'] }}</p>
+                <h4>Precautions:</h4>
+                <ul>
+                    {% for precaution in result['precautions'] %}
+                        <li>{{ precaution }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symptom Analysis Chat</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #f4f7fc; /* Light background for a calm feel */
+            color: #333;
+        }
+        .chat-box {
+            max-width: 650px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2rem;
+            color: #4CAF50; /* Green color for a healthy theme */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            font-size: 1.1rem;
+            color: #444;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .chat-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s ease;
+        }
+        .chat-input:focus {
+            border-color: #4CAF50;
+            background-color: #fff;
+            outline: none;
+        }
+        .chat-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .chat-button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .llm-output {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            white-space: pre-line;
+            font-family: 'Courier New', monospace;
+        }
+        .disease-result h3 {
+            color: #4CAF50;
+        }
+        .disease-result ul {
+            margin-top: 10px;
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        .disease-result li {
+            font-size: 1rem;
+            color: #444;
+        }
+        /* Responsive styling */
+        @media screen and (max-width: 768px) {
+            .chat-box {
+                width: 90%;
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-box">
+        <h1>Symptom Chat</h1>
+        <form action="/process-chat" method="post">
+            <label for="user-input">Describe your symptoms:</label>
+            <textarea id="user-input" name="user_input" class="chat-input" rows="5" placeholder="Enter your symptoms here..."></textarea>
+            <button type="submit" class="chat-button">Submit</button>
+        </form>
+
+        {% if error %}
+            <div style="color: red; margin-top: 20px; text-align: center;">{{ error }}</div>
+        {% endif %}
+        
+        {% if user_input %}
+            <div class="result-box">
+                <h2>Your Input:</h2>
+                <p>{{ user_input }}</p>
+            </div>
+        {% endif %}
+
+        {% if llm_output %}
+            <div class="llm-result">
+                <h3>LLM Response:</h3>
+                <div class="llm-output">
+                    <p>{{ llm_output['generated_text'] }}</p>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if result %}
+            <div class="disease-result">
+                <h3>Disease Prediction:</h3>
+                <p><strong>Disease:</strong> {{ result['disease'] }}</p>
+                <p><strong>Confidence Scores:</strong> {{ result['confidence_scores'] }}</p>
+                <h4>Explanation:</h4>
+                <p>{{ result['description'] }}</p>
+                <h4>Precautions:</h4>
+                <ul>
+                    {% for precaution in result['precautions'] %}
+                        <li>{{ precaution }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

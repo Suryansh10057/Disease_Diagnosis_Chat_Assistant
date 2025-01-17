@@ -1,0 +1,143 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symptom Analysis Chat</title>
+</head>
+<body>
+    <h1>Welcome to Symptom Analysis</h1>
+    <p>Use the chat feature to describe your symptoms.</p>
+    <a href="/chat"><button>Go to Chat</button></a>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symptom Analysis Chat</title>
+    <style>
+        /* Reset default margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Set the background of the entire page */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5); /* Soft gradient background */
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Container for the page content */
+        .container {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px 50px;
+            border-radius: 12px;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #ffcc00;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        /* Button styling */
+        .btn {
+            background-color: #ffcc00; /* Bright yellow for button */
+            color: #333;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Hover effect for the button */
+        .btn:hover {
+            background-color: #ff9900;
+            transform: scale(1.05);
+        }
+
+        /* Link styling */
+        .link {
+            color: #ffcc00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .link:hover {
+            text-decoration: underline;
+            color: #fff;
+        }
+
+        /* Additional styling for spacing and layout */
+        .footer {
+            margin-top: 40px;
+            font-size: 1rem;
+        }
+
+        .footer a {
+            color: #ffcc00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive design: for smaller screens */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 20px;
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .btn {
+                font-size: 1rem;
+                padding: 12px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main content container -->
+    <div class="container">
+        <h1>Welcome to Symptom Analysis</h1>
+        <p>Use the chat feature to describe your symptoms and get predictions for possible diseases.</p>
+        <a href="/chat">
+            <button class="btn">Go to Chat</button>
+        </a>
+        
+        <div class="footer">
+            <p>Need help? <a href="/contact" class="link">Contact Support</a></p>
+        </div>
+    </div>
+
+</body>
+</html>
